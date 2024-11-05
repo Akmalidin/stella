@@ -91,6 +91,11 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.OrderingFilter',
     ),
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',  # Добавьте поддержку multipart/form-data
+    ],
 }
 SWAGGER_SETTINGS = {
    'SECURITY_DEFINITIONS': {

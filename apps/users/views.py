@@ -1,5 +1,6 @@
 # users/views.py
 from rest_framework import generics
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from .serializers import UserRegistrationSerializer
 from .models import CustomUser
@@ -7,6 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     permission_classes = [AllowAny] # Разрешить доступ без аутентификации
+    parser_classes = [MultiPartParser, FormParser]
     def get(self, request):
         # Возвращаем пустую форму с названиями полей
         default_data = {

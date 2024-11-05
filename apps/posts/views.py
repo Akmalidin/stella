@@ -2,12 +2,13 @@ from rest_framework import generics, viewsets
 from .models import Post, CustomerPost
 from .serializers import PostSerializer, CustomerPostSerializer
 from .filters import PostFilter, CustomerPostFilter
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     filterset_class = PostFilter  # Указываем фильтр
-
+    parser_classes = [MultiPartParser, FormParser]
     # При необходимости, добавьте поддержку сортировки
     ordering_fields = '__all__'  # Все поля могут быть использованы для сортировки
     ordering = ['created']  # Порядок по умолчанию

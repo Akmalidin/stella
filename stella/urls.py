@@ -53,6 +53,7 @@ urlpatterns = [
     path('api/category/', include('apps.category.urls')),  # Категории
     path('api/posts/', include('apps.posts.urls')),  # Посты
     path('api/users/', include('apps.users.urls')),  # Пользователи
+    path('api/reviews/', include('apps.reviews.urls')),  # Отзывы
     path('api/feedback/', include('apps.feedback.urls')),  # Обратная связь
     # Auth urls
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Получение токена
