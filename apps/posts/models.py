@@ -2,7 +2,6 @@ from django.db import models
 from apps.category.models import Category
 class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
-    image = models.ImageField(upload_to='posts/', verbose_name='Изображение', blank=True, null=True)
     type_of_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     complete = models.BooleanField(default=False, verbose_name='Завершено')
     address = models.CharField(max_length=255, verbose_name='Адрес')
@@ -21,7 +20,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    
+class PostImage(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост')
+    image = models.ImageField(upload_to='posts/', verbose_name='Изображение')
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания", blank=True, null=True)
+
+    def __str__(self):
+        return self.post.title
+
+    class Meta:
+        verbose_name = 'Изображение поста' 
+        verbose_name_plural = 'Изображения постов'    
 
 class CustomerPost(models.Model):
     name = models.CharField(max_length=255, verbose_name='ФИМ')

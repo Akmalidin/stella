@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'apps.reviews',
     'apps.users',
     'apps.feedback',
+    # vehicle apps
+    'apps.vehicle.seller',
+    'apps.vehicle.brand',
+    'apps.vehicle.models',
 ]
 
 MIDDLEWARE = [
@@ -80,23 +84,23 @@ TEMPLATES = [
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 WSGI_APPLICATION = 'stella.wsgi.application'
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.OrderingFilter',
-    ),
-    'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.MultiPartParser',  # Добавьте поддержку multipart/form-data
-    ],
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_FILTER_BACKENDS': (
+#         'django_filters.rest_framework.DjangoFilterBackend',
+#         'rest_framework.filters.OrderingFilter',
+#     ),
+#     'DEFAULT_PARSER_CLASSES': [
+#         'rest_framework.parsers.JSONParser',
+#         'rest_framework.parsers.FormParser',
+#         'rest_framework.parsers.MultiPartParser',  # Добавьте поддержку multipart/form-data
+#     ],
+# }
 SWAGGER_SETTINGS = {
    'SECURITY_DEFINITIONS': {
       'Basic': {

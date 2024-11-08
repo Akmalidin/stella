@@ -1,16 +1,23 @@
 from rest_framework import serializers
 from apps.category.models import Category
-from .models import Post, CustomerPost
+from .models import Post, CustomerPost, PostImage
 
+
+class PostImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostImage
+        fields = ['id','image', 'created', 'post']  # Возвращаем только поле изображения для простоты
 
 class PostSerializer(serializers.ModelSerializer):
     type_of_category = serializers.CharField(source='type_of_category.title', read_only=True, label='Категория')
     type_of_category_id = serializers.PrimaryKeyRelatedField(
-            source='type_of_category',  # Указываем, что это связано с полем type_of_category
-            queryset=Category.objects.all(),  # Указываем, что можем выбрать из всех категорий
-            write_only=True,  # Делаем его доступным только для записи
-            label='Категория'  # Можно также добавить метку для идентификатора категории
+            source='type_of_category',
+            queryset=Category.objects.all(),
+            write_only=True,
+            label='Категория'
         )
+    images = PostImageSerializer(source='postimage_set', many=True, read_only=True)
+
     class Meta:
         model = Post
         fields = (
@@ -18,7 +25,6 @@ class PostSerializer(serializers.ModelSerializer):
             'title',
             'type_of_category',
             'type_of_category_id',
-            'image',
             'complete',
             'address',
             'region',
@@ -28,11 +34,12 @@ class PostSerializer(serializers.ModelSerializer):
             'price',
             'description',
             'created',
-            'updated'
+            'updated',
+            'images'
         )
+
         extra_kwargs = {
             'title': {'help_text': 'Название объекта недвижимости'},
-            'image': {'help_text': 'Изображение'},
             'complete': {'help_text': 'Завершено'},
             'address': {'help_text': 'Адрес'},
             'region': {'help_text': 'Регион'},

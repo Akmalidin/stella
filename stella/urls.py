@@ -39,7 +39,7 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),  # Разрешаем доступ без аутентификации для отображения Swagger
-    authentication_classes=(JWTAuthentication,),
+    # authentication_classes=(JWTAuthentication,),
 
 )
 
@@ -55,6 +55,10 @@ urlpatterns = [
     path('api/users/', include('apps.users.urls')),  # Пользователи
     path('api/reviews/', include('apps.reviews.urls')),  # Отзывы
     path('api/feedback/', include('apps.feedback.urls')),  # Обратная связь
+    # Vehicle urls
+    path('api/seller/', include('apps.vehicle.seller.urls')),  # Продавцы
+    path('api/brand/', include('apps.vehicle.brand.urls')),  # Бренды
+    path('api/vehicle/', include('apps.vehicle.models.urls')),  # Автомобили
     # Auth urls
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Получение токена
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # Обновление токена
